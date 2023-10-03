@@ -1,0 +1,191 @@
+
+  img {
+    width: 200px;
+    margin: 10px;
+  }
+
+  .ImgCat {
+    display: grid;
+    gap: 40px;
+    justify-content: space-evenly; 
+    padding-bottom: 20px;  
+    padding-top: 20px;  
+  }
+  
+  /* Styles for the container with background image */
+  .ViewImgOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/images%2Fhadees%2F20220826_195720.jpg?alt=media&token=7a770b02-4334-4de8-9a10-90263cefbd47');
+  }
+
+  .ViewQuranOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/images%2Fquran%2F20210127_000548.jpg?alt=media&token=a043202b-a66d-4e8e-8b49-a173b84a8885');
+  }
+
+  .ViewWallpaperOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/images%2Fwallpaper%2F20230916_081312.jpg?alt=media&token=842a652e-19ce-4b4c-8d8c-dc10e5a828cc');
+  }
+  
+  .ViewLatestOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/images%2Fquran%2F20210123_215605.jpg?alt=media&token=d0650883-e299-4e51-8892-93c3c542335a');
+  }
+
+  .ViewQuizOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/images%2Fquiz%2F20230918_181953.jpg?alt=media&token=b54b8753-9964-4682-8007-e3140c7577f3');
+  }  
+
+  .TamilImgOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/tamil%2Fhadees%2F20230917_004202.jpg?alt=media&token=b11ab863-c2c5-43bd-b42e-b5cf06dde3a7');
+  }
+  .TamilQuranOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/tamil%2Fquran%2F20230916_065547.jpg?alt=media&token=bb341204-435e-4385-8b8c-79625d2b03b1');
+  }
+  .TamilWallpaperOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/tamil%2Fwallpaper%2F20230916_080646.jpg?alt=media&token=c4466d6c-b871-4e14-83c5-fa43418ae93c');
+  }
+  .TamilLatestOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/images%2Fquiz%2F20230918_181953.jpg?alt=media&token=b54b8753-9964-4682-8007-e3140c7577f3');
+  }
+  .TamilQuizOptions {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/tamil%2Fquiz%2F20230918_174104.jpg?alt=media&token=14aa80e8-63a7-4323-a883-631a098d786d');
+  }
+
+
+  .ViewWallpaperOptions,
+  .ViewLatestOptions,
+  .ViewQuizOptions,
+  .ViewQuranOptions,
+  .ViewImgOptions,
+  .TamilImgOptions ,
+  .TamilQuranOptions ,
+  .TamilWallpaperOptions ,
+  .TamilLatestOptions ,
+  .TamilQuizOptions  {
+    background-size: cover;
+    background-position: center;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 3px 5px 3px rgb(101, 209, 238);
+  }
+  
+  /* Pseudo-element for dimming effect */
+  .ViewLatestOptions::before,
+  .ViewImgOptions::before,
+  .ViewWallpaperOptions::before,
+  .ViewQuranOptions::before,
+  .ViewQuizOptions::before,
+  .TamilImgOptions::before,
+  .TamilQuranOptions::before,
+  .TamilWallpaperOptions::before,
+  .TamilLatestOptions::before,
+  .TamilQuizOptions::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.658);
+  }  
+
+
+  /* Styles for the heading and button inside containers */
+  .ViewImgOptions h1,
+  .ViewQuranOptions h1,
+  .ViewWallpaperOptions h1,
+  .ViewLatestOptions h1,
+  .ViewQuizOptions h1,
+  .TamilImgOptions h1,
+  .TamilQuranOptions h1,
+  .TamilWallpaperOptions h1,
+  .TamilLatestOptions h1,
+  .TamilQuizOptions h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: aliceblue;
+    text-shadow: -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black, 2px 2px 0px black; /* Black stroke */
+    position: relative; /* Adjust position to appear above pseudo-element */	
+    
+  }
+  
+  /* Styles for the button */
+  .ViewImgOptions button,
+  .ViewQuranOptions button,
+  .ViewWallpaperOptions button,
+  .ViewLatestOptions button,
+  .ViewQuizOptions button 
+  .TamilImgOptions button,
+  .TamilQuranOptions button,
+  .TamilWallpaperOptions button,
+  .TamilLatestOptions button,
+  .TamilQuizOptions button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative; /* Adjust position to appear above pseudo-element */	
+ 
+  }
+  
+  .ViewImgOptions button:hover,
+  .ViewQuranOptions button:hover,
+  .ViewWallpaperOptions button:hover,
+  .ViewLatestOptions button:hover ,
+  .TamilImgOptions button:hover,
+  .TamilQuranOptions button:hover,
+  .TamilWallpaperOptions button:hover,
+  .TamilLatestOptions button:hover,
+  .TamilQuizOptions button:hover {
+    background-color: #ffffff;
+    color: black;
+  }
+  
+  .LangDiv {
+    padding-top: 20px;
+    display: grid;
+    gap: 10px;
+    justify-content: space-evenly; 
+        
+  }
+  .LangDiv label{
+    color: white ;
+   
+  }
+  
+  
+  
+  @media (max-width: 768px) {
+    .ViewWallpaperOptions,
+    .ViewLatestOptions,
+    .ViewQuizOptions,
+    .ViewQuranOptions,
+    .ViewImgOptions,
+    .TamilImgOptions ,
+    .TamilQuranOptions ,
+    .TamilWallpaperOptions ,
+    .TamilLatestOptions ,
+    .TamilQuizOptions  {
+      width: 280px;
+      height: 280px;
+    }
+
+    .ViewImgOptions h1,
+    .ViewQuranOptions h1,
+    .ViewWallpaperOptions h1,
+    .ViewLatestOptions h1,
+    .ViewQuizOptions h1,
+    .TamilImgOptions h1,
+    .TamilQuranOptions h1,
+    .TamilWallpaperOptions h1,
+    .TamilLatestOptions h1,
+    .TamilQuizOptions h1 {
+      font-size: 26px;
+    }
+  }

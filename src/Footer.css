@@ -1,0 +1,47 @@
+.footer-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding-bottom: 20px;
+}
+
+.footer-top {
+  text-align: center;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  
+}
+
+
+
+
+.f-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+
+
+.footer-bottom a {
+  text-decoration: none;
+  color: white;
+
+}
+
+.footer-bottom a:hover{
+  color: #27bcda;
+}
+
+@media (max-width: 768px) {
+  .footer-bottom a{
+    font-size: 12px;
+  }
+}

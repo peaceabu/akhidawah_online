@@ -1,0 +1,25 @@
+/* ContactUs.css */
+
+/* ... existing styles ... */
+
+.social-media-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 15px;
+    }
+  
+  .social-media-links i {
+    color: #ffffff;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    padding: 5px;
+  }
+  
+  .social-media-links i:hover {
+    color: #3183fd;
+  }
+.social-media-links i{
+  color: #ffffff;
+}  

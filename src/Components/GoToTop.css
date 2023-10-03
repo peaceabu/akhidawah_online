@@ -1,0 +1,24 @@
+/* App.css or App.scss */
+.go-to-top-button {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: opacity 0.3s;
+  }
+  
+  .go-to-top-button.visible {
+    display: block;
+  }
+  
+  .go-to-top-button:hover {
+    opacity: 0.8;
+  }
+  

@@ -1,0 +1,109 @@
+.loader-overlay {
+   min-height: 80vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  }
+
+.empty-gallery-message{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.galleryDiv{
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap: 10px;
+    min-height: 65vh;
+    padding-bottom: 20px;
+   
+    
+  }
+
+
+  .downloadBtn button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative; /* Adjust position to appear above pseudo-element */	
+    z-index: 1; /* Ensure it's above the pseudo-element */
+  }
+  
+  .downloadBtn button:hover {
+    background-color: #ffffff;
+    color: black;
+  }  
+
+
+.image-card{
+  margin: 10px;
+  position: relative;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 1px 2px 4px rgb(101, 209, 238);
+  padding-bottom: 8px;
+  
+}
+
+.image-card img{
+  width: 250px;
+}
+
+.quizBtn{
+  padding-bottom: 10px;
+}
+.quizOption {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-right: 10px;
+  background-color: #fbfbfc;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  
+}
+
+.quizOption:hover {
+  background-color: #0275f8;
+  color:#fff;
+}
+
+
+.loader-overlay{
+  align-items: center;
+}
+
+.image-card p{
+  display: inline-block;
+  max-width: 70%;
+  margin-right: 80px;
+  margin-left: 80px;
+  color: #fff;
+}
+.image-metadata p{
+  color: #fbfbfc;
+}
+
+.pagination-buttons{
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .image-card img{
+    width: 320px;
+  }
+  .galleryDiv{
+    display: grid;
+    grid-template-columns:repeat(1, 1fr);
+    gap: 10px;
+    padding-bottom: 20px;
+    
+  }
+}

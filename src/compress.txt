@@ -1,0 +1,44 @@
+import { initializeApp } from 'firebase/app';
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
+import React, { useEffect, useState } from 'react';
+import { readAndCompressImage } from 'react-image-file-resizer'; // Import the image resizer
+import './App.css';
+
+// ... (your other code remains the same)
+
+const ImageGallery = () => {
+  const [imageUrls, setImageUrls] = useState([]);
+
+  useEffect(() => {
+    async function fetchAndCompressImageUrls() {
+      const imagesRef = ref(storage, 'images');
+      const imageList = await listAll(imagesRef);
+
+      const compressedImagePromises = imageList.items.map(async (imageRef) => {
+        const imageUrl = await getDownloadURL(imageRef);
+        
+        // Resize and compress the image
+        const compressedImageUrl = await readAndCompressImage(imageUrl, 300, 300, 80);
+        
+        return compressedImageUrl;
+      });
+
+      const compressedUrls = await Promise.all(compressedImagePromises);
+      setImageUrls(compressedUrls);
+    }
+
+    fetchAndCompressImageUrls();
+  }, []);
+
+  return (
+    <div>
+      {imageUrls.map((url, index) => (
+        <img key={index} src={url} alt={`Image ${index}`} />
+      ))}
+    </div>
+  );
+};
+
+export default ImageGallery;
+
+npm install react-image-file-resizer

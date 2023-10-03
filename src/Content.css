@@ -1,0 +1,79 @@
+.App {
+    text-align: center;   
+    background-color: black; 
+    font-family: 'Baloo Thambi 2', cursive;
+  }
+
+  /* img {
+    width: 400px;
+    margin: 10px;
+  } */
+
+.centrelogo img{
+  width: 300px;
+  }
+  .App-header {
+    position: relative; 
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: rgb(248, 248, 248);
+    }
+
+
+ 
+/* Pseudo-element for the background overlay */
+  .App-header::before {
+    content: "";
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(29, 29, 29, 0.2), rgba(16, 16, 16, 0.1));
+  }
+
+
+/* Style for the quote */
+.quote{
+  font-style: italic;
+  color: #ffffff;
+  box-shadow: #333;
+  font-size: 23px;
+  z-index: 1;
+  padding: 0 18px 0;
+  
+}
+
+/* Style for the Quran reference */
+.quote p:last-child {
+  
+  margin-top: 1px;
+  padding: 0;
+}
+
+/* Style for the welcome message */
+.welcome-message {
+  font-size: 23px;
+  line-height: 1.5;
+  color: #ffffff;
+  padding: 0 20px 0;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .centrelogo img{
+    width: 300px;
+  }
+  .welcome-message {
+    font-size: 18px;
+    }
+    .quote{
+      font-size: 18px;
+    }  
+}

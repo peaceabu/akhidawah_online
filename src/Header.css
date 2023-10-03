@@ -1,0 +1,81 @@
+.header-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding-bottom: 20px;
+}
+
+.header-top {
+  text-align: center;
+}
+
+.header-bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.NavToggle {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: medium;
+  padding-left: 10px;
+  
+}
+
+.NavOptions {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.NavOptions.NavOpen {
+  display: flex;
+  padding-top: 25px;
+}
+
+.h-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.h-menu li {
+  margin-right: 10px; /* Adjust the spacing between list items as needed */
+  
+}
+
+.h-menu li:last-child {
+  margin-right: 0; /* Remove margin from the last list item */
+  padding-right: 10px;
+}
+
+.h-menu a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+
+}
+
+.h-menu a:active{
+  color: #27bcda;
+}
+.h-menu a:hover{
+  color: #27bcda;
+}
+
+@media (max-width: 768px) {
+  .h-menu a{
+    font-size: 14px;
+    }
+    .NavToggle {
+      font-size: 14px;
+      
+    }  
+}
+

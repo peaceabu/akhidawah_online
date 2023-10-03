@@ -1,0 +1,39 @@
+/* Shared header style */
+.shared-header {
+  text-align: center;
+  padding: 20px ;
+  /* background: linear-gradient(to right, #3498db , #2c3e50  );  */
+  color: #1b0101; /* Text color for better readability */
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 0;
+  background-image: linear-gradient(60deg, #b2eae7 0%, #49d5ce 100%);
+  
+}
+
+
+@media (max-width: 768px) {
+    .shared-header{
+      font-size: 16px;
+      padding: 20px;
+    }
+  }
+
+  .custom-input {
+    background-color: #212529;
+    padding: 10px;
+    border: none;
+    box-shadow: none;
+    color: #fff;
+  }  
+/* 
+.ProfileDiv h2{
+  text-align: center;
+  padding: 20px ;
+  color: #1b0101; 
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 0;
+  background-image: linear-gradient(60deg, #b2eae7 0%, #49d5ce 100%);
+  
+}   */

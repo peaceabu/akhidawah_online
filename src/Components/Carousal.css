@@ -1,0 +1,56 @@
+/* Carousel.css */
+
+.carousel-container {
+  width: 90%;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+.slick-dots {
+  display: block; /* Show dots on mobile */
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.icon {
+  
+  width: 80px;
+  height: 80px;
+  color: #0f7eec;
+  
+}
+.slick-dots li button::after {
+  color: rgb(255, 255, 255); /* Change the color of the dots */
+}
+.slick-dots li button::before {
+  color: rgb(255, 255, 255); /* Change the color of the dots */
+}
+.carousel-card {
+  width: 100%;  /* Adjust the width of the card */
+  max-width: 300px;  /* Set a maximum width if needed */
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+
+
+@media (max-width: 767px) {
+  .carousel-container {
+      width: 100%;
+    }
+  .slick-prev,
+  .slick-next {
+    display: none; /* Hide arrows on mobile */
+  }
+
+  .slick-dots {
+    display: block; /* Show dots on mobile */
+    text-align: center;
+    margin-top: 10px;
+  }
+}  
