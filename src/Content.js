@@ -12,6 +12,7 @@ import About from './About'
 // import Category from './Category'
 // import { Link, useNavigate } from 'react-router-dom';
 // import firebaseConfig from './firebaseConfig';
+import SearchableImageGallery from './Components/SearchableImageGallery';
 
 
 
@@ -43,6 +44,7 @@ const Content = () => {
       {/* <Search /> */}
       
     </div>
+    {/* <SearchableImageGallery /> */}
     <CardGrid />
    
     </div>

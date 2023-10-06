@@ -95,6 +95,43 @@ button:hover {
   color: black;
 }
 
+.SelectedTagsDiv {
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  max-height: 100px; /* Adjust the max height as needed */
+  max-width: 250px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.SelectedTagsItem {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  padding: 2px;
+  background-color: #fffefe;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.SelectedTagsItem span {
+  margin-right: 5px;
+  color: #0050c7;
+  font-size: 14px;
+}
+
+.SelectedTagsItem button {
+  cursor: pointer;
+  background-color: #111111;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: 10px;
+}
+
 
 @keyframes App-logo-spin {
   from {

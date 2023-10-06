@@ -9,6 +9,7 @@ import { saveAs } from 'file-saver';
 import { FaDownload,FaArrowCircleRight,FaArrowCircleLeft } from 'react-icons/fa';
 import { Bars } from 'react-loader-spinner';
 import CustomAlertModal from './Components/CustomAlertModal';
+import SearchableImageGallery from './Components/SearchableImageGallery';
 
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -47,7 +48,7 @@ const ImageGallery = () => {
         const endIndex = startIndex + imagesPerPage;
         const imageUrls = [];
         const imageMetadata = [];
-        console.log(startIndex, imageList.items.length)
+       
 
         
 
@@ -61,7 +62,7 @@ const ImageGallery = () => {
         }
 
         for (let i = startIndex; i < endIndex && i < imageList.items.length; i++) {
-          console.log('length',imageList.items.length)
+          
           const imageRef = imageList.items[i];
           const url = await getDownloadURL(imageRef);
           const metadata = await getMetadata(imageRef);
@@ -107,11 +108,18 @@ const ImageGallery = () => {
   const closeAlert = () => {
     setShowAlert(false);
   };
-
+  const handleSearch = (results) => {
+    console.log('resultr',results)
+    setDisplayedImages([]);
+    setTotalPages(0);
+    setCurrentPage(1);
+    // You may also update other state variables if needed
+  };
   return (
     <div id='image-gallery-container'>
       <h1 className='shared-header'>{capitalizedCategory} Images</h1>
-      
+      {/* <SearchableImageGallery /> */}
+      <SearchableImageGallery onSearch={handleSearch} displayedImages={[]} />
       
       {!loading  && (
       <div className='MaingalleryDiv'>
@@ -123,11 +131,12 @@ const ImageGallery = () => {
             <div key={index} className='image-card'>
               <img src={url} alt={`Image ${index}`} className='img' />
               <div className='image-metadata'>
-              {imageMetadata[index]?.customMetadata?.author ? (
-                <p>Upload by: {imageMetadata[index]?.customMetadata?.author}</p>
-              ) : (
-                <p>Upload by: IRFOfficialNet</p> // Provide a fallback message or value
-              )}
+                {imageMetadata[index]?.customMetadata?.author === 'Abdul Malik' ||
+                !imageMetadata[index]?.customMetadata?.author ? (
+                  <p>Upload by: {imageMetadata[index]?.customMetadata?.author || 'IRFOfficialNet'}</p>
+                ) : (
+                  <p>Upload by: IRFOfficialNet</p>
+                )}
               </div>
               <div className='quizBtn'>
                 <span className='quizOption' onClick={() => handleOptionClick('A')}>
@@ -161,12 +170,13 @@ const ImageGallery = () => {
             <div key={index} className='image-card'>
               <img src={url} alt={`Image ${index}`} className='img' />
               <div className='image-metadata'>
-              {imageMetadata[index]?.customMetadata?.author ? (
-                <p>Upload by: {imageMetadata[index]?.customMetadata?.author}</p>
-              ) : (
-                <p>Upload by: IRFOfficialNet</p> // Provide a fallback message or value
-              )}
-              </div>
+                {imageMetadata[index]?.customMetadata?.author === 'Abdul Malik' ||
+                !imageMetadata[index]?.customMetadata?.author ? (
+                  <p>Upload by: {imageMetadata[index]?.customMetadata?.author || 'IRFOfficialNet'}</p>
+                ) : (
+                  <p>Upload by: IRFOfficialNet</p>
+                )}
+</div>  
               <div className='downloadBtn'>              
                 <button onClick={() => downloadImage(url)}>
                   Download <FaDownload />
@@ -193,8 +203,7 @@ const ImageGallery = () => {
         {!loading && currentPage !== totalPages && totalPages !== 0 && (
         <button onClick={goToNextPage} disabled={currentPage === totalPages || loading}>
           <FaArrowCircleRight />
-          <p>{currentPage} {totalPages}</p>
-        </button>
+          </button>
         
         )}
       </div>

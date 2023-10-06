@@ -29,9 +29,26 @@ const Mediahanle = () => {
   const [user, setUser] = useState(null); 
   const [showPolicy, setShowPolicy] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [tags, setTags] = useState([]);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+  };
+
+  const handleTagsChange = (newTags) => {
+    setTags([...tags, newTags]);
+  };
+
+  const handleAddTags = () => {
+    if (inputValue.trim() !== '') {
+      setTags([...tags, inputValue]);
+      setInputValue('');
+    }
+  };
+  const handleRemoveTags = (index) => {
+    const newTags = [...tags];
+    newTags.splice(index, 1);
+    setTags(newTags);
   };
 
   const togglePolicy = () => {
@@ -133,12 +150,15 @@ const Mediahanle = () => {
 
 const submitform = () => {
   console.log('submit clicked')
-  if (inputValue != ''){
+  if (tags != []){
     if (dropselectedOption) {
       setIsUploading(true);
       setShowSuccessMessage(false); 
       scrollToLoadingDiv();
       // Rest of your code
+      console.log(tags)
+      console.log(typeof(tags))
+      const tagsJsonString = JSON.stringify(tags);
       const file = selectedFile
       const storagePath = langselectedOption.value + '/' + dropselectedOption.value + '/' + file.name;
       const storageRef = firebase.storage().ref();
@@ -146,7 +166,7 @@ const submitform = () => {
       const metadata = {
         customMetadata: {
           author: user.displayName,
-          description: inputValue,
+          tags:tagsJsonString,
           answer: quizdropselectedOption.value
         },
       };
@@ -157,6 +177,7 @@ const submitform = () => {
       setIsUploading(false); // Hide the modal
       setSelectedFile(null); // Clear the selected file
       setShowSuccessMessage(true);
+      setTags([])
   
       setTimeout(() => {
         setShowSuccessMessage(false);
@@ -241,7 +262,31 @@ const scrollToLoadingDiv = () => {
           />
 
         </div>
-        <div className='DescDiv'>
+        <div className='TagsInput'>
+        <label htmlFor="interestInput">Tags</label>
+        <div>
+          <input
+            type="text"
+            id="TagsInput"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Type an Tags"
+            className="custom-input"
+          />
+          <button onClick={handleAddTags}>Add</button>
+        </div>
+      </div>
+
+      {/* Display selected Tagss */}
+      <div className='SelectedTagsDiv'>
+        {tags.map((tags, index) => (
+          <div key={index} className='SelectedTagsItem'>
+            <span>{tags}</span>
+            <button onClick={() => handleRemoveTags(index)}>X</button>
+          </div>
+        ))}
+      </div>
+        {/* <div className='DescDiv'>
           <label htmlFor="desc">Description</label>
           <input
               type="text"
@@ -252,7 +297,7 @@ const scrollToLoadingDiv = () => {
               placeholder='Ex. Quran 112:3'
             />
 
-        </div>
+        </div> */}
         {dropselectedOption.value === 'quiz' ? (
         <div className='QuizDiv'>
           <label htmlFor="quizlabel">Choose Answer</label>
