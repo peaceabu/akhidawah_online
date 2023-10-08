@@ -6,7 +6,7 @@ import firebaseConfig from '../firebaseConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 import { FaDownload,FaArrowCircleRight,FaArrowCircleLeft } from 'react-icons/fa';
-
+import './SearchableImage.css'
 
 const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);
@@ -15,7 +15,17 @@ const storage = getStorage(firebaseApp);
 // ... other imports ...
 
 const SearchableImageGallery = ({ onSearch, displayedImages }) => {
-// const SearchableImageGallery = () => {
+  const placeholders = ["Quran 95:3", "Buhari 1302", "Mecca", "Muslim family"];
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setPlaceholderIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
+    }, 2000); // Change every 2 seconds (adjust as needed)
+
+    return () => clearInterval(intervalId); // Cleanup on component unmount
+  }, []); // Empty dependency array ensures the effect runs once on mount
+
     const navigate = useNavigate();
     const { lang, category } = useParams();
     const [searchTerm, setSearchTerm] = useState('');
@@ -93,7 +103,7 @@ const SearchableImageGallery = ({ onSearch, displayedImages }) => {
           type="text"
           value={searchTerm}
           onChange={handleChange}
-          placeholder="Buhari 1035"
+          placeholder={placeholders[placeholderIndex]}
           className="custom-input"
         />
         <button onClick={handleSearch}>Search</button>

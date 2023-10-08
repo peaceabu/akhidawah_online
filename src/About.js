@@ -23,7 +23,13 @@ const About = () => {
     <div className="About">
       <h1 className='shared-header'>About Us</h1>
        <div className='AboutCard'>
-    <Carousel cards={cards} /></div>
+    <Carousel cards={cards} />
+    <div className='ContactDiv'>
+    <h1 className='shared-headertwo'>Contact Us</h1>
+    <span>We value your feedback and are committed to providing a positive experience on our site. If you have suggestions to improve our content or if you would like to request the removal of specific material, please feel free to contact us using the form below.</span>
+    </div>
+    
+    </div>
     </div>
     
 

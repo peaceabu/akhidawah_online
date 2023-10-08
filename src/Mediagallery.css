@@ -36,7 +36,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: relative; /* Adjust position to appear above pseudo-element */	
-    z-index: 1; /* Ensure it's above the pseudo-element */
+   
   }
   
   .downloadBtn button:hover {
@@ -46,15 +46,18 @@
 
 
 .image-card{
-  margin: 10px;
+  margin: 0;
   position: relative;
   text-align: center;
   border-radius: 10px;
   box-shadow: 1px 2px 4px rgb(101, 209, 238);
   padding-bottom: 8px;
+
   
 }
-
+.image-gallery-container{
+  background-color: black;
+}
 .image-card img{
   width: 250px;
 }
@@ -96,7 +99,8 @@
 }
 
 .pagination-buttons{
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+  background-color: black;
 }
 
 @media (max-width: 768px) {
@@ -108,6 +112,7 @@
     grid-template-columns:repeat(1, 1fr);
     gap: 10px;
     padding-bottom: 20px;
+   
     
   }
 }
