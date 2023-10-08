@@ -7,12 +7,6 @@ import './About.css';
 import './Common.css';
 import Carousel from './Components/Carousel.jsx'
 import { FaKaaba, FaMosque} from "react-icons/fa"; 
-// import { Link, useNavigate } from 'react-router-dom';
-// import firebaseConfig from './firebaseConfig';
-
-
-
-// firebase.initializeApp(firebaseConfig);
 
 
 
@@ -28,18 +22,8 @@ const About = () => {
   return (
     <div className="About">
       <h1 className='shared-header'>About Us</h1>
-       
-    <div >
-    <Carousel cards={cards} />
-      
-        
-    </div>
-    {/* <div className="AboutMsg - IRF">
-        <h2>About IRFOfficialNet</h2>
-        <p>Islamic Research Foundation-IRFOfficialNet:
-IRF, a non-profit organization, is on a noble mission to introduce the true essence of Islam to non-Muslims. Our goal is to dispel misconceptions, foster understanding, and share the authentic message of Islam with Muslims and non-Muslims alike. We believe that by illuminating the path of truth, we can build bridges of harmony and promote a world where people of all backgrounds can appreciate the beauty of Islam.</p>  
-    </div> */}
-    
+       <div className='AboutCard'>
+    <Carousel cards={cards} /></div>
     </div>
     
 

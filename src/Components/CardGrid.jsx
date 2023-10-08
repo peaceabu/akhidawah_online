@@ -23,7 +23,7 @@ function CardGrid() {
 
   return (
     <div className={`card-grid ${isMounted ? 'show' : ''}`}>
-      <div className="header">Category <MdViewCarousel className='HeadIcon'/></div>
+      <div className="shared-header">Category </div>
 
       <div className="card-container">
         {data.map((item, index) => (

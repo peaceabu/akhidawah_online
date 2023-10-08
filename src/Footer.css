@@ -18,7 +18,11 @@
   
 }
 
-
+@media (max-width: 768px) {
+  .footer-bottom{
+    margin-left: 15px;
+    }
+  }
 
 
 .f-menu {

@@ -18,7 +18,7 @@ const Header = () => {
       <img src="https://firebasestorage.googleapis.com/v0/b/kaswa-1d3ad.appspot.com/o/images%2Fbg%2F20230909_172137.png?alt=media&token=0e9e50c8-92a7-4384-87ca-cf9caeacd2e3" alt="Akhi Dawah" />
 
     </div>
-    <div className='header-bottom'>
+    {/* <div className='header-bottom'>
       <button className='NavToggle' onClick={toggleNav}>
       <FaAlignJustify /> Menu
       </button>
@@ -31,7 +31,7 @@ const Header = () => {
           <li><a href="/profile"><MdAccountCircle /> Profile</a></li>
         </ul>
       </nav>
-    </div>
+    </div> */}
   </div>
 </header>
 

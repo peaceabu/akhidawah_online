@@ -1,0 +1,49 @@
+/* Navigation.css */
+
+/* Add padding to the body or a container above the navigation bar */
+body {
+    padding-bottom: 60px; /* Adjust the value based on the height of your navigation bar */
+  }
+  
+  .navigation {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: #333;
+    color: #fff;
+    margin: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    overflow-x: auto; /* Add horizontal scrolling if needed */
+  }
+  
+  .nav-item {
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90px; /* Set a specific max-width for each navigation item */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+  }
+  
+  .nav-item.active {
+    background-color: #ffffff;
+    color: black; /* Change the color to the desired active state color */
+  }
+  
+  .nav-item a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 12px; /* Adjust the font size for the text */
+  }
+  
+  .nav-item svg {
+    font-size: 18px; /* Adjust the font size for the icons */
+  }
+  
+  /* Add more specific styles as needed */
+  

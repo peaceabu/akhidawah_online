@@ -18,11 +18,11 @@
   margin-right: 10px;
 }
 
-.HeadIcon {
+
+.HeadIcon{
   width: 35px;
   height: 40px;
-  position: absolute;
-  padding-left: 10px;
+  
 }
 
 .icon {
@@ -114,3 +114,4 @@
 .action:hover span {
   transform: translateX(4px);
 }
+
