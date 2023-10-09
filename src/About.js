@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/compat/app';
-
+import Contacts from './Components/Contacts';
 import 'firebase/compat/storage';
 import 'firebase/compat/database';
 import './About.css';
@@ -26,9 +26,9 @@ const About = () => {
     <Carousel cards={cards} />
     <div className='ContactDiv'>
     <h1 className='shared-headertwo'>Contact Us</h1>
-    <span>We value your feedback and are committed to providing a positive experience on our site. If you have suggestions to improve our content or if you would like to request the removal of specific material, please feel free to contact us using the form below.</span>
+    <span>We value your feedback and are committed to providing a positive experience on our site. If you have suggestions to improve our content or if you would like to request the removal of specific material, please feel free to contact us.</span>
     </div>
-    
+    <Contacts />
     </div>
     </div>
     

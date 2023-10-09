@@ -1,6 +1,38 @@
 /* ContactUs.css */
 
-/* ... existing styles ... */
+/* .PhoneMail{
+  font-size: 17px;
+  color: black;
+  background-color: white;
+
+ 
+
+}
+/*  */
+.PhoneMail span,a{
+ 
+  text-decoration: none;
+  color: rgb(252, 252, 252);
+}
+
+@media (max-width: 768px) {
+  .PhoneMail{
+      font-size: 17px;
+      color: black;
+      background-color: white;
+      padding: 20px;
+      margin-top: 12px;
+
+  
+  }
+  .social-media-links svg{
+    color: black;
+  }
+  .PhoneMail span,a{
+      text-decoration: none;
+      color: black;
+  }
+}
 
 .social-media-links {
     display: flex;
@@ -17,8 +49,9 @@
     padding: 5px;
   }
   
-  .social-media-links i:hover {
+  .social-media-links svg:hover {
     color: #3183fd;
+    
   }
 .social-media-links i{
   color: #ffffff;
