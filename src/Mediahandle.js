@@ -35,10 +35,6 @@ const Mediahanle = () => {
     setInputValue(e.target.value);
   };
 
-  const handleTagsChange = (newTags) => {
-    setTags([...tags, newTags]);
-  };
-
   const handleAddTags = () => {
     if (inputValue.trim() !== '') {
       setTags([...tags, inputValue]);

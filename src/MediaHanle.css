@@ -100,7 +100,7 @@ button:hover {
   border: 1px solid #ccc;
   padding: 10px;
   max-height: 100px; /* Adjust the max height as needed */
-  max-width: 250px;
+  max-width: 280px;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -140,4 +140,12 @@ button:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+
+@media (max-width: 768px) {
+  .SelectedTagsDiv{
+    max-width: auto;
+    }
+    
 }
