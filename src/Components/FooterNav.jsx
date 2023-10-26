@@ -1,7 +1,7 @@
 // Navigation.js
 
 import React, { useState, useEffect } from 'react';
-import { FaHome, FaUpload, FaInfoCircle } from 'react-icons/fa';
+import { FaHome, FaUpload, FaInfoCircle,FaSearch } from 'react-icons/fa';
 import { MdViewCarousel, MdAccountCircle } from 'react-icons/md';
 import { Link, useLocation } from 'react-router-dom';
 import './FooterNav.css';
@@ -23,6 +23,11 @@ const Navigation = () => {
       <li className={`nav-item ${activeNavItem === 'Home' ? 'active' : ''}`}>
         <Link to="/">
           <FaHome /> Home
+        </Link>
+      </li>
+      <li className={`nav-item ${activeNavItem === 'searchcard' ? 'active' : ''}`}>
+        <Link to="/searchcard">
+          <FaSearch /> Search
         </Link>
       </li>
       <li className={`nav-item ${activeNavItem === 'category' ? 'active' : ''}`}>

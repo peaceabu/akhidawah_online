@@ -5,13 +5,7 @@ import 'firebase/compat/storage';
 import 'firebase/compat/database';
 import './Content.css';
 import './Common.css';
-import Search from './Search';
 import CardGrid from './Components/CardGrid';
-import About from './About'
-// import Contacts from './Components/Contacts';
-// import Category from './Category'
-// import { Link, useNavigate } from 'react-router-dom';
-// import firebaseConfig from './firebaseConfig';
 import SearchableImageGallery from './Components/SearchableImageGallery';
 
 
@@ -26,7 +20,6 @@ const Content = () => {
   const [totalPages, setTotalPages] = useState(0);
   
   const handleSearch = (results) => {
-    console.log('resultr',results)
     setDisplayedImages([]);
     setTotalPages(0);
     setCurrentPage(1);
@@ -52,11 +45,11 @@ const Content = () => {
     </div>
 
       </header>
-      <Search />
+  
       
     </div>
     
-    <SearchableImageGallery onSearch={handleSearch} displayedImages={[]} />
+    {/* <SearchableImageGallery onSearch={handleSearch} displayedImages={[]} /> */}
     <CardGrid />
    
     </div>

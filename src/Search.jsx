@@ -15,8 +15,7 @@ function Search() {
   useEffect(() => {
     // Function to retrieve images with custom metadata
     const fetchImages = (searchTerm) => {
-      // const storagePath = 'tamil'; // Set the root folder
-      console.log(searchTerm)
+      // const storagePath = 'tamil'; // Set the root folder      
       const storageRef = firebase.storage().ref();
     
       // Function to recursively list items in a folder and its subfolders
@@ -29,8 +28,7 @@ function Search() {
             return item.getMetadata().then((metadata) => {
               // Check if the profile name in metadata matches the user's profile name
               const matchesProfile = metadata.customMetadata && metadata.customMetadata.description === searchTerm;
-              if (matchesProfile) {
-                console.log("Matched:", item.name);
+              if (matchesProfile) {                
                 return item.getDownloadURL(); // Return the download URL promise
               }
               return null;

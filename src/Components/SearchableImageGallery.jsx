@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ref, list, getDownloadURL, getMetadata,getStorage } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
-import SearchBar from './Searchbar';
 import firebaseConfig from '../firebaseConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 import { FaDownload,FaArrowCircleRight,FaArrowCircleLeft } from 'react-icons/fa';
 import './SearchableImage.css'
+import { InfinitySpin  } from 'react-loader-spinner';
 
 const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);
@@ -33,69 +33,68 @@ const SearchableImageGallery = ({ onSearch, displayedImages }) => {
     const [loading, setLoading] = useState(false);
     const [imageMetadata, setImageMetadata] = useState([]);
     const [searchButtonClicked, setSearchButtonClicked] = useState(false);
-    const downloadImage = (url) => {
-      console.log('download',url)
+    const downloadImage = (url) => {      
       saveAs(url, 'akhidawah.jpg');
     };
     const handleChange = (event) => {
         const value = event.target.value;
         setSearchTerm(value);
       };
-    const handleSearch = async (term) => {
-      try {
-        setLoading(true);
-        setSearchButtonClicked(true);
-        setSearchResults([]); // Clear previous search results
-        const imageMetadata = [];
-        // console.log(lang)
-        let imagesRef;
-        if (lang){
-          imagesRef = ref(storage, `${lang}/${category}`);
-        }else{
-          imagesRef = ref(storage);
-        }
-        console.log(imagesRef)
-        const imageList = await list(imagesRef);
-  
-        const searchPromises = imageList.items.map(async (imageRef) => {
-          const metadata = await getMetadata(imageRef);
-  
-          // Customize this part to match your metadata structure
-          const author = metadata?.customMetadata?.tags || '';
-          console.log('searchTerm',searchTerm)
-          if (
-            searchTerm &&
-            author.toLowerCase().includes(searchTerm.toLowerCase())
-          ) {
-            const url = await getDownloadURL(imageRef);
-            imageMetadata.push(metadata);
-            return { url, metadata };
-          } else if (!searchTerm) {
-            const url = await getDownloadURL(imageRef);
-            imageMetadata.push(metadata);
-            return { url, metadata };
+      const handleSearch = async (term) => {
+        try {
+          setLoading(true);
+          setSearchButtonClicked(true);
+          setSearchResults([]); // Clear previous search results
+          const imageMetadata = [];
+      
+          let imagesRef;
+          if (lang) {            
+            imagesRef = ref(storage, `${lang}/${category}`);
+          } else {
+            imagesRef = ref(storage);
           }
-  
-          return null;
-        });
-  
-        const results = await Promise.all(searchPromises);
-
-        
-        const validResults = results.filter(result => result && result.metadata && result.metadata.customMetadata !== undefined);
-
-        setSearchResults(validResults);
-    
-        setImageMetadata(imageMetadata);
-        // Pass the search results to the parent component
-        onSearch(validResults.map(result => result.url));
-      } catch (error) {
-        console.error('Error searching images:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
+      
+          const recursiveSearch = async (ref) => {
+            const imageList = await list(ref);
+      
+            const searchPromises = imageList.items.map(async (imageRef) => {
+              const metadata = await getMetadata(imageRef);
+              const author = metadata?.customMetadata?.tags || '';
+      
+              if (searchTerm && author.toLowerCase().includes(searchTerm.toLowerCase())) {
+                const url = await getDownloadURL(imageRef);
+                imageMetadata.push(metadata);
+                return { url, metadata };
+              } else if (!searchTerm) {
+                const url = await getDownloadURL(imageRef);
+                imageMetadata.push(metadata);
+                return { url, metadata };
+              }
+      
+              return null;
+            });
+      
+            const results = await Promise.all(searchPromises);
+            const validResults = results.filter((result) => result && result.metadata && result.metadata.customMetadata !== undefined);
+      
+            setSearchResults((prevResults) => [...prevResults, ...validResults]);
+      
+            const subdirPromises = imageList.prefixes.map((prefix) => recursiveSearch(prefix));
+            await Promise.all(subdirPromises);
+          };
+      
+          await recursiveSearch(imagesRef);
+      
+          setImageMetadata(imageMetadata);
+          // Pass the search results to the parent component
+          onSearch(searchResults.map((result) => result.url));
+        } catch (error) {
+          console.error('Error searching images:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      
 
     return (
       <div>
@@ -109,7 +108,7 @@ const SearchableImageGallery = ({ onSearch, displayedImages }) => {
         <button onClick={handleSearch}>Search</button>
         {/* <SearchBar onSearch={handleSearch} /> */}
   
-        {loading && <p>Loading...</p>}
+        {loading && <InfinitySpin color="#007bff"  />}
        
         {!loading && searchResults.length > 0 && (
         <div className='MaingalleryDiv'>

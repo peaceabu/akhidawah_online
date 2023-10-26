@@ -37,8 +37,7 @@ const ImageGallery = () => {
   
   useEffect(() => {
     if (!hasFetchedImages) {
-    const fetchImagesForPage = async () => {
-      console.log('try')
+    const fetchImagesForPage = async () => {      
       try {
         setLoading(true);
         const imagesRef = ref(storage, `${lang}/${category}`);
@@ -73,8 +72,7 @@ const ImageGallery = () => {
 
         setDisplayedImages(imageUrls);
         
-        setImageMetadata(imageMetadata);
-        console.log(imageMetadata)
+        setImageMetadata(imageMetadata);        
         setLoading(false);
         setHasFetchedImages(false);
       } catch (error) {
@@ -86,8 +84,7 @@ const ImageGallery = () => {
     }
   }, [category, currentPage, hasFetchedImages]);
 
-  const downloadImage = (url) => {
-    console.log('download',url)
+  const downloadImage = (url) => {    
     saveAs(url, 'akhidawah.jpg');
   };
 
@@ -113,7 +110,6 @@ const ImageGallery = () => {
     setShowAlert(false);
   };
   const handleSearch = (results) => {
-    console.log('resultr',results)
     setDisplayedImages([]);
     setTotalPages(0);
     setCurrentPage(1);

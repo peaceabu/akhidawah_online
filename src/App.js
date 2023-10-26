@@ -1,8 +1,4 @@
-import log from './logo.svg';
-// import './index.css';
-import Header from './Header';
 import Content from './Content';
-import Footer from './Footer';
 import Mediahanle from './Mediahandle';
 import ImageGallery from './Mediagallery';
 import { BrowserRouter as Router, Route, Redirect, Routes } from 'react-router-dom';
@@ -11,6 +7,7 @@ import About from './About';
 import React, { useRef } from 'react';
 import Layout from './Layout';
 import Profile from './profle';
+import SearchCard from './Components/Searchbar';
 
 function App() {
   const scrollToRef = useRef(null);
@@ -25,6 +22,14 @@ function App() {
             element={
               <Layout>
                 <Content />
+              </Layout>
+            }
+          />
+              <Route
+            path="/searchcard"
+            element={
+              <Layout>
+                <SearchCard />
               </Layout>
             }
           />
