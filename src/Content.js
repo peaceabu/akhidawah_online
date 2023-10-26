@@ -21,6 +21,17 @@ import SearchableImageGallery from './Components/SearchableImageGallery';
 
 
 const Content = () => {
+  const [displayedImages, setDisplayedImages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  
+  const handleSearch = (results) => {
+    console.log('resultr',results)
+    setDisplayedImages([]);
+    setTotalPages(0);
+    setCurrentPage(1);
+    // You may also update other state variables if needed
+  };
   return (
     <div className="App">
       <div className='ConetntDiv'>
@@ -41,10 +52,11 @@ const Content = () => {
     </div>
 
       </header>
-      {/* <Search /> */}
+      <Search />
       
     </div>
-    {/* <SearchableImageGallery /> */}
+    
+    <SearchableImageGallery onSearch={handleSearch} displayedImages={[]} />
     <CardGrid />
    
     </div>

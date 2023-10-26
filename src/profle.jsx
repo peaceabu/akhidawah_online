@@ -11,7 +11,7 @@ import Select from 'react-select';
 import firebaseConfig from './firebaseConfig';
 import { initializeApp } from 'firebase/app';
 import { MdDelete, MdEditSquare ,MdCancel} from 'react-icons/md';
-import { FaUpload } from "react-icons/fa";
+import { FaUpload,FaArrowCircleRight,FaArrowCircleLeft } from 'react-icons/fa';
 import { BiLogOut, BiLogIn } from "react-icons/bi";
 import { Bars } from 'react-loader-spinner';
 import {FaCircleArrowUp } from "react-icons/fa6";
@@ -28,6 +28,9 @@ const Profile = () => {
   const [inputValue, setInputValue] = useState('');
   const [tags, setTags] = useState([]);
   const [imageMetadata, setImageMetadata] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const imagesPerPage = 9; // Number of images per page
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     // Firebase listener to check if a user is logged in
@@ -66,77 +69,84 @@ const Profile = () => {
     }
   };
 
-const fetchImagesByProfileName = (profileName) => {
-  setLoading(true);
-  const imageInfo = []; // Instead of two separate arrays, use a single array to store objects with URL and metadata
-  const storageRef = firebase.storage().ref();
-
-  const listAllItems = async (ref) => {
-    try {
-      const result = await ref.listAll();
-      const downloadURLsPromises = [];
+  const fetchImagesByProfileName = (profileName) => {
+    setLoading(true);
+    const imageInfo = [];
+    const storageRef = firebase.storage().ref();
   
-      const itemPromises = result.items.map(async (item) => {
-        try {
-          const metadata = await item.getMetadata();
-          console.log(profileName)
-          const matchesProfile = metadata.customMetadata && metadata.customMetadata.author === profileName;
-          // const matchesProfile = (metadata.customMetadata && metadata.customMetadata.author === profileName) || (profileName === "ABDUL MALIK" && metadata.customMetadata === undefined);
-          if (matchesProfile) {
-            const tagvalues = metadata.customMetadata.tags;
-            const path = metadata.customMetadata
-            console.log("path:", path);
-            console.log("Matched:", item.name);
-            console.log(tagvalues);
+    const listAllItems = async (ref) => {
+      try {
+        const result = await ref.listAll();
+        const downloadURLsPromises = [];
   
-            // Wait for the promise to resolve and then push the result into the array
-            const url = await item.getDownloadURL();
-            imageInfo.push({ url, metadata: tagvalues });
-            return { url, metadata: tagvalues };
+        const itemPromises = result.items.map(async (item) => {
+          try {
+            const metadata = await item.getMetadata();
+            const matchesProfile = (metadata.customMetadata && metadata.customMetadata.author === profileName) || (profileName === "ABDUL MALIK" && metadata.customMetadata === undefined);
+  
+            if (matchesProfile) {
+              let tagvalues;
+              let path;
+  
+              if (metadata.customMetadata) {
+                tagvalues = metadata.customMetadata.tags;
+                path = metadata.customMetadata;
+              } else {
+                tagvalues = '';
+                path = '';
+              }
+  
+              
+              const url = await item.getDownloadURL();
+              imageInfo.push({ url, metadata: tagvalues });
+              return { url, metadata: tagvalues };
+            }
+  
+            return null;
+          } catch (error) {
+            console.error("Error fetching item metadata:", error);
+            return null;
           }
+        });
   
-          return null;
-        } catch (error) {
-          console.error("Error fetching item metadata:", error);
-          return null;
-        }
+        const subdirPromises = result.prefixes.map((prefix) => {
+          return listAllItems(prefix);
+        });
+  
+        const resolvedItemPromises = await Promise.all(itemPromises);
+        const filteredDownloadURLs = resolvedItemPromises.filter((item) => item !== null);
+  
+        downloadURLsPromises.push(...filteredDownloadURLs);
+  
+        const subdirDownloadURLs = await Promise.all(subdirPromises);
+        downloadURLsPromises.push(...subdirDownloadURLs.flat());
+  
+        return downloadURLsPromises;
+      } catch (error) {
+        console.error("Error listing all items:", error);
+        throw error;
+      }
+    };
+  
+    listAllItems(storageRef)
+      .then((downloadURLs) => {
+        const flattenedURLs = [].concat(...downloadURLs);
+        const startIndex = (currentPage - 1) * imagesPerPage;
+        const endIndex = currentPage * imagesPerPage;
+        const slicedImages = flattenedURLs.slice(startIndex, endIndex);
+  
+        const slicedImageInfo = imageInfo.slice(startIndex, endIndex);
+  
+        setImagesInfo(slicedImageInfo);
+        setTotalPages(Math.ceil(flattenedURLs.length / imagesPerPage));
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching images:", error);
+        setLoading(false);
       });
-  
-      const subdirPromises = result.prefixes.map((prefix) => {
-        return listAllItems(prefix);
-      });
-  
-      const resolvedItemPromises = await Promise.all(itemPromises);
-      const filteredDownloadURLs = resolvedItemPromises.filter((item) => item !== null);
-  
-      downloadURLsPromises.push(...filteredDownloadURLs);
-  
-      const subdirDownloadURLs = await Promise.all(subdirPromises);
-      downloadURLsPromises.push(...subdirDownloadURLs.flat());
-  
-      return downloadURLsPromises;
-    } catch (error) {
-      console.error("Error listing all items:", error);
-      throw error;
-    }
   };
   
-  
-  listAllItems(storageRef)
-    .then((downloadURLs) => {
-      const flattenedURLs = [].concat(...downloadURLs);
-      console.log('flattenedURLs',flattenedURLs)
-      // Instead of two separate states, set a single state with imageInfo
-      console.log(imageInfo)
-      setImagesInfo(imageInfo);
-      console.log(ImagesInfo,'ImagesInfo')
-      setLoading(false);
-    })
-    .catch((error) => {
-      console.error("Error fetching images:", error);
-      setLoading(false);
-    });
-};
 
 
 
@@ -157,8 +167,6 @@ const fetchImagesByProfileName = (profileName) => {
   const EditToggle = (imageUrl, index) => {
     setEdidiv(true)
     setImgurl(imageUrl)
-    console.log('imageMetadata',ImagesInfo,typeof(ImagesInfo))
-    console.log('data',ImagesInfo[index].metadata,typeof(ImagesInfo[index].metadata))
     const arrayValues = ImagesInfo[index].metadata
     let arrayFromMetadata;
 
@@ -197,11 +205,7 @@ const fetchImagesByProfileName = (profileName) => {
 
 const SubmitToggle = async () => {
   setEdidiv(false);
-  console.log('imgurl',Imgurl)
-  // Assuming you want to update the metadata for the first image
-  // const imageUrl = ImagesInfo[0].url;
   const path = getStoragePathFromUrl(Imgurl)
-  console.log('path',path)
   const pathArray = ImagesInfo[0].url.split('/');
   const storagePath = pathArray.slice(4).join('/'); // Adjust the index as needed
   const storageRef = firebase.storage().ref().child(path);
@@ -227,20 +231,26 @@ const SubmitToggle = async () => {
 function getStoragePathFromUrl(url) {
   // Find the index of the 'o/' segment
   const startIndex = url.indexOf('o/') + 2;
-
   // Find the index of the '?' character
   const endIndex = url.indexOf('?');
-
-  // Extract the substring starting from the 'o/' segment to the '?' character
   const pathString = url.substring(startIndex, endIndex);
-
-  // Decode the URL-encoded path
   const decodedPath = decodeURIComponent(pathString);
-
   return decodedPath;
 }
 
+const goToPreviousPage = () => {
+  if (currentPage > 1) {
+    setCurrentPage(currentPage - 1);
+    fetchImagesByProfileName(user.displayName);
+  }
+};
 
+const goToNextPage = () => {
+  if (currentPage < totalPages) {
+    setCurrentPage(currentPage + 1);
+    fetchImagesByProfileName(user.displayName);
+  }
+};
   return (
     <div className="HandleAppCls">
       <h1 className='shared-header'>Profile</h1>
@@ -284,7 +294,7 @@ function getStoragePathFromUrl(url) {
 
                     ))}
                     {editdiv && (
-                      <div className='editDiv'>
+                      <div className='editDiv' >
                         <div className='TagsInput'>
                           <label htmlFor="interestInput">Tags</label>
                           
@@ -319,7 +329,20 @@ function getStoragePathFromUrl(url) {
                     )}
                     
                   </div>
+                  <div className="pagination-buttons">
+                    {!loading && currentPage !== 1 && (
+                      <button onClick={goToPreviousPage} disabled={currentPage === 1 || loading}>
+                        <FaArrowCircleLeft />
+                      </button>
+                    )}
+                    {!loading && currentPage !== totalPages && totalPages !== 0 && (
+                      <button onClick={goToNextPage} disabled={currentPage === totalPages || loading}>
+                        <FaArrowCircleRight />
+                      </button>
+                    )}
+                  </div>
                 </div>
+                
               ) : (
                 <div className='empty-gallery-message'>
                   {/* Show this div when profileImages is empty */}

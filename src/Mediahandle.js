@@ -144,48 +144,61 @@ const Mediahanle = () => {
     }
   };
 
-const submitform = () => {
-  console.log('submit clicked')
-  if (tags != []){
+  const submitform = () => {
+    console.log('submit clicked');
     if (dropselectedOption) {
+      if (dropselectedOption.value !== 'quiz' && !selectedFile) {
+        alert('Please select an image');
+        return;
+      }
+    // Check if tags array is not empty
+    if (tags.length === 0) {
+      alert('Please enter tags');
+      return;
+    }
+  
+    // Check if other fields are not empty based on the selected category
+
+  
+      if (langselectedOption.value === '') {
+        alert('Please choose a language');
+        return;
+      }
+  
+      // Add more checks if needed for other fields
+  
       setIsUploading(true);
-      setShowSuccessMessage(false); 
+      setShowSuccessMessage(false);
       scrollToLoadingDiv();
-      // Rest of your code
-      console.log(tags)
-      console.log(typeof(tags))
+  
       const tagsJsonString = JSON.stringify(tags);
-      const file = selectedFile
+      const file = selectedFile;
       const storagePath = langselectedOption.value + '/' + dropselectedOption.value + '/' + file.name;
       const storageRef = firebase.storage().ref();
       const imageRef = storageRef.child(storagePath);
       const metadata = {
         customMetadata: {
           author: user.displayName,
-          tags:tagsJsonString,
-          answer: quizdropselectedOption.value
+          tags: tagsJsonString,
+          answer: quizdropselectedOption.value,
         },
       };
-      
+  
       imageRef.put(file, metadata).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-      setUploadSuccess(true);
-      setIsUploading(false); // Hide the modal
-      setSelectedFile(null); // Clear the selected file
-      setShowSuccessMessage(true);
-      setTags([])
+        console.log('Uploaded a blob or file!');
+        setUploadSuccess(true);
+        setIsUploading(false);
+        setSelectedFile(null);
+        setShowSuccessMessage(true);
+        setTags([]);
   
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 2000);
-    });         
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 2000);
+      });
     }
-  }
-  else{
-    alert('Please Enter Description')
-  }
+  };
   
-}
 
 
 const scrollToLoadingDiv = () => {

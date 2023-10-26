@@ -33,6 +33,7 @@ const ImageGallery = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
+  const [CrtOption, setCrtOption] = useState('');
   
   useEffect(() => {
     if (!hasFetchedImages) {
@@ -71,7 +72,9 @@ const ImageGallery = () => {
         }
 
         setDisplayedImages(imageUrls);
+        
         setImageMetadata(imageMetadata);
+        console.log(imageMetadata)
         setLoading(false);
         setHasFetchedImages(false);
       } catch (error) {
@@ -100,8 +103,9 @@ const ImageGallery = () => {
     }
   };
 
-  const handleOptionClick = (quizoption) => {
+  const handleOptionClick = (quizoption,imgoptionval) => {
     setSelectedOption(quizoption);
+    setCrtOption(imgoptionval)
     setShowAlert(true);
   };
 
@@ -131,28 +135,31 @@ const ImageGallery = () => {
             <div key={index} className='image-card'>
               <img src={url} alt={`Image ${index}`} className='img' />
               <div className='image-metadata'>
-                {imageMetadata[index]?.customMetadata?.author === 'Abdul Malik' ||
-                !imageMetadata[index]?.customMetadata?.author ? (
-                  <p>Upload by: {imageMetadata[index]?.customMetadata?.author || 'IRFOfficialNet'}</p>
-                ) : (
-                  <p>Upload by: IRFOfficialNet</p>
-                )}
+                  <p>
+                    Upload by: {imageMetadata[index]?.customMetadata?.author &&
+                      imageMetadata[index]?.customMetadata?.author !== 'ABDUL MALIK' &&
+                      imageMetadata[index]?.customMetadata?.author !== 'Peace Abu'
+                        ? imageMetadata[index]?.customMetadata?.author
+                        : 'IRFOfficialNet'}
+                  </p>
               </div>
+
+
               <div className='quizBtn'>
-                <span className='quizOption' onClick={() => handleOptionClick('A')}>
+                <span className='quizOption' onClick={() => handleOptionClick('A',imageMetadata[index].customMetadata.answer)}>
                   A
                 </span>
-                <span className='quizOption' onClick={() => handleOptionClick('B')}>
+                <span className='quizOption' onClick={() => handleOptionClick('B',imageMetadata[index].customMetadata.answer)}>
                   B
                 </span>
-                <span className='quizOption' onClick={() => handleOptionClick('C')}>
+                <span className='quizOption' onClick={() => handleOptionClick('C',imageMetadata[index].customMetadata.answer)}>
                   C
                 </span>
                 <CustomAlertModal
                   isOpen={showAlert}
                   onClose={closeAlert}
-                  message={`Selected option : ${selectedOption}`}
-                  crtinfo={`Correct option : ${imageMetadata[index].customMetadata.answer}`}
+                  selectedinfo={selectedOption}
+                  crtinfo={CrtOption}
                 />
               </div>
               <div className='downloadBtn'>
